@@ -1,0 +1,59 @@
+name: Deploy to Cloud Run (from source)
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    name: Build & Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build client + server artifacts
+        run: npm run build
+
+      - name: Authenticate to GCP (Workload Identity)
+        uses: google-github-actions/auth@v1
+        with:
+          # The Workload Identity Provider resource (create in GCP IAM)
+          # e.g. "projects/12345/locations/global/workloadIdentityPools/POOL/providers/PROVIDER"
+          workload_identity_provider: ${{ secrets.GCP_WIF_PROVIDER }}
+          # The service account email to impersonate, e.g. my-sa@project.iam.gserviceaccount.com
+          service_account: ${{ secrets.GCP_SA_EMAIL }}
+
+      - name: Setup gcloud CLI
+        uses: google-github-actions/setup-gcloud@v1
+        with:
+          project_id: ${{ secrets.GCP_PROJECT }}
+          version: 'latest'
+
+      - name: Deploy to Cloud Run from source
+        env:
+          CLOUD_RUN_SERVICE: ${{ secrets.CLOUD_RUN_SERVICE }}
+          CLOUD_RUN_REGION: ${{ secrets.CLOUD_RUN_REGION }}
+          CLOUDSQL_INSTANCE: ${{ secrets.CLOUDSQL_INSTANCE }}
+        run: |
+          # Deploys by building the repository into a container (Cloud Build)
+          # and deploying that container to Cloud Run.
+          gcloud run deploy "$CLOUD_RUN_SERVICE" \
+            --source . \
+            --region "$CLOUD_RUN_REGION" \
+            --platform managed \
+            --allow-unauthenticated \
+            --set-env-vars "PORT=5000,NODE_ENV=production,DATABASE_URL=${{ secrets.DATABASE_URL }},SMTP_HOST=${{ secrets.SMTP_HOST }},SMTP_PORT=${{ secrets.SMTP_PORT }},SMTP_USER=${{ secrets.SMTP_USER }},SMTP_PASS=${{ secrets.SMTP_PASS }},EMAIL_TO=${{ secrets.EMAIL_TO }}" \
+            --add-cloudsql-instances "$CLOUDSQL_INSTANCE"
+
+      - name: Post-deploy note
+        run: echo "Deployment finished. Verify Cloud Run service in GCP console."
