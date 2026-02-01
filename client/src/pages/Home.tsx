@@ -16,7 +16,7 @@ export default function Home() {
         {/* Unsplash: Industrial port with containers */}
         <div className="absolute inset-0 z-0">
           <img 
-            src="https://images.unsplash.com/photo-1494412651409-ae156eb18455?q=80&w=2070&auto=format&fit=crop" 
+            src="https://images.unsplash.com/photo-1578575437130-527eed3abbec?q=80&w=2070&auto=format&fit=crop" 
             alt="Global Logistics Port" 
             className="w-full h-full object-cover"
           />
