@@ -1,4 +1,4 @@
-import { db } from "./db";
+import { getDb } from "./db";
 import { contactSubmissions, type InsertContact, type ContactSubmission } from "@shared/schema";
 
 export interface IStorage {
@@ -7,6 +7,7 @@ export interface IStorage {
 
 export class DatabaseStorage implements IStorage {
   async createContactSubmission(contact: InsertContact): Promise<ContactSubmission> {
+    const db = getDb();
     const [submission] = await db.insert(contactSubmissions).values(contact).returning();
     return submission;
   }
