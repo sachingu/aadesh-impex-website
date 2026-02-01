@@ -42,5 +42,10 @@ EXPOSE 5000
 # Set environment to production
 ENV NODE_ENV=production
 
+# Hardcoded Cloud SQL instance and default DATABASE_URL for Cloud Run
+# WARNING: consider using Secret Manager instead of hardcoding credentials.
+ENV CLOUDSQL_INSTANCE=aipl-website-486013:europe-west1:aipl-website-db
+ENV DATABASE_URL=postgresql://pguser:pgpassword@/aipl?host=/cloudsql/aipl-website-486013:europe-west1:aipl-website-db
+
 # Start the application with migrations
 CMD ["/app/start.sh"]
