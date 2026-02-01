@@ -5,6 +5,10 @@ on:
     branches:
       - main
 
+permissions:
+  contents: 'read'
+  id-token: 'write'
+
 jobs:
   deploy:
     name: Build & Deploy
@@ -20,6 +24,29 @@ jobs:
 
       - name: Install dependencies
         run: npm ci
+
+      - name: Validate GCP Workload Identity secrets
+        run: |
+          # Secrets are not available for workflows triggered from forks.
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            echo "Error: running from a pull_request; repository secrets may be unavailable (forks).";
+            echo "Trigger workflow from the repository (push to main) or run locally.";
+            exit 1;
+          fi
+
+          if [ -z "${{ secrets.GCP_WIF_PROVIDER }}" ]; then
+            echo "Missing secret: GCP_WIF_PROVIDER";
+            exit 1;
+          fi
+          if [ -z "${{ secrets.GCP_SA_EMAIL }}" ]; then
+            echo "Missing secret: GCP_SA_EMAIL";
+            exit 1;
+          fi
+          if [ -z "${{ secrets.GCP_PROJECT }}" ]; then
+            echo "Missing secret: GCP_PROJECT";
+            exit 1;
+          fi
+        shell: bash
 
       - name: Build client + server artifacts
         run: npm run build
