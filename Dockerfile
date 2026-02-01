@@ -20,13 +20,21 @@ FROM node:22-alpine
 
 WORKDIR /app
 
-# Install only production dependencies
+# Install all dependencies (keep dev deps for drizzle-kit migrations)
 COPY package*.json ./
 
-RUN npm install --omit=dev
+RUN npm install
 
 # Copy built application from builder stage
 COPY --from=builder /app/dist ./dist
+
+# Copy configuration files for migrations
+COPY drizzle.config.ts ./
+COPY shared ./shared
+
+# Copy startup script
+COPY start.sh /app/start.sh
+RUN chmod +x /app/start.sh
 
 # Expose the port
 EXPOSE 5000
@@ -34,5 +42,5 @@ EXPOSE 5000
 # Set environment to production
 ENV NODE_ENV=production
 
-# Start the application
-CMD ["npm", "start"]
+# Start the application with migrations
+CMD ["/app/start.sh"]
