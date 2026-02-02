@@ -62,7 +62,7 @@ export default function Contact() {
                   <div>
                     <h4 className="font-bold text-slate-900 mb-1">Office Location</h4>
                     <p className="text-slate-600">
-                      Survey no.13<br />
+                      Survey no. 13<br />
                       Behind Nagor GIDC,<br />
                       Village - Purasar,<br />
                       Taluka - Bhuj, Dist - Kutch<br />
@@ -96,7 +96,7 @@ export default function Contact() {
 
               <div className="mt-12">
                 <iframe
-                  src="https://www.google.com/maps?q=Survey%20no.13%20Behind%20Nagor%20GIDC%2C%20Village%20-%20Purasar%2C%20Taluka%20-%20Bhuj%2C%20Dist%20-%20Kutch%20GUJARAT%20-%20370001&output=embed"
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7014.469137781848!2d69.722693206092!3d23.29026656263129!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3950e3b7011c9235%3A0x558165e26d484dcd!2sPurasar%2C%20Gujarat%20370001%2C%20India!5e1!3m2!1sen!2sus!4v1770007623794!5m2!1sen!2sus"
                   width="100%"
                   height="300"
                   style={{ border: 0, borderRadius: '0.5rem' }}
