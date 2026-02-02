@@ -45,9 +45,11 @@ export function Footer() {
               <li className="flex items-start gap-3">
                 <MapPin className="h-5 w-5 text-primary shrink-0 mt-0.5" />
                 <span>
-                  123 Industrial Estate,<br />
-                  Gandhidham, Kutch,<br />
-                  Gujarat, India - 370201
+                  Survey no.13<br />
+                  Behind Nagor GIDC,<br />
+                  Village - Purasar,<br />
+                  Taluka - Bhuj, Dist - Kutch<br />
+                  GUJARAT - 370001
                 </span>
               </li>
               <li className="flex items-center gap-3">

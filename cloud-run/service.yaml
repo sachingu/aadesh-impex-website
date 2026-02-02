@@ -1,0 +1,44 @@
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: aadesh-impex-website
+  annotations:
+    # If you use Cloud SQL, set your instance connection name here
+    # e.g. PROJECT:REGION:INSTANCE
+    run.googleapis.com/cloudsql-instances: "REPLACE_WITH_CLOUDSQL_INSTANCE"
+spec:
+  template:
+    metadata:
+      annotations:
+        # tune autoscaling (optional)
+        autoscaling.knative.dev/maxScale: "5"
+    spec:
+      containers:
+        - image: "gcr.io/PROJECT/IMAGE:TAG"
+          # Cloud Run expects your app to listen on $PORT (default 8080),
+          # but this project uses port 5000 by default. We set PORT here.
+          env:
+            - name: PORT
+              value: "5000"
+            - name: NODE_ENV
+              value: "production"
+            # Recommended: store sensitive values in Secret Manager and
+            # reference them here or inject at deploy time.
+            - name: DATABASE_URL
+              value: "postgresql://pguser:pgpassword@/aipl?host=/cloudsql/REPLACE_WITH_CLOUDSQL_INSTANCE"
+            - name: SMTP_HOST
+              value: "" # set via Secrets or deploy-time overrides
+            - name: SMTP_PORT
+              value: "587"
+            - name: SMTP_USER
+              value: ""
+            - name: SMTP_PASS
+              value: ""
+            - name: EMAIL_TO
+              value: ""
+          resources:
+            limits:
+              memory: 512Mi
+              cpu: "1"
+      containerConcurrency: 80
+      timeoutSeconds: 300

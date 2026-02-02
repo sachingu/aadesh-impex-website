@@ -62,8 +62,11 @@ export default function Contact() {
                   <div>
                     <h4 className="font-bold text-slate-900 mb-1">Office Location</h4>
                     <p className="text-slate-600">
-                      123 Industrial Estate, Gandhidham,<br />
-                      Kutch, Gujarat, India - 370201
+                      Survey no.13<br />
+                      Behind Nagor GIDC,<br />
+                      Village - Purasar,<br />
+                      Taluka - Bhuj, Dist - Kutch<br />
+                      GUJARAT - 370001
                     </p>
                   </div>
                 </div>
@@ -92,15 +95,15 @@ export default function Contact() {
               </div>
 
               <div className="mt-12">
-                <iframe 
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3688.086884617183!2d70.1337!3d23.0765!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3950b8eb30000001%3A0x0!2sGandhidham%2C%20Gujarat!5e0!3m2!1sen!2sin!4v1600000000000!5m2!1sen!2sin" 
-                  width="100%" 
-                  height="300" 
-                  style={{ border: 0, borderRadius: '0.5rem' }} 
-                  allowFullScreen 
-                  loading="lazy" 
+                <iframe
+                  src="https://www.google.com/maps?q=Survey%20no.13%20Behind%20Nagor%20GIDC%2C%20Village%20-%20Purasar%2C%20Taluka%20-%20Bhuj%2C%20Dist%20-%20Kutch%20GUJARAT%20-%20370001&output=embed"
+                  width="100%"
+                  height="300"
+                  style={{ border: 0, borderRadius: '0.5rem' }}
+                  allowFullScreen
+                  loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"
-                  title="Google Maps Location"
+                  title="Aadesh Impex - Office Location"
                 ></iframe>
               </div>
             </div>
