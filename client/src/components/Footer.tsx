@@ -45,7 +45,7 @@ export function Footer() {
               <li className="flex items-start gap-3">
                 <MapPin className="h-5 w-5 text-primary shrink-0 mt-0.5" />
                 <span>
-                  Survey no.13<br />
+                  Survey no. 13<br />
                   Behind Nagor GIDC,<br />
                   Village - Purasar,<br />
                   Taluka - Bhuj, Dist - Kutch<br />
